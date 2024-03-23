@@ -1,29 +1,38 @@
-# sgbr-challenge
+# Desafio do Desenvolvedor Frontend
 
-## Project setup
+## Clone Repository
+```
+git clone https://github.com/Arturstriker3/sgbr-challenge
+```
+
+## Open the Project
+```
+cd .\sgbr-challenge\ 
+```
+
+## Dependency Installation
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compile and run Front and Back
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### Desafio do Desenvolvedor Frontend
+ 
+ Desafio simples para testar as habilidades na construção de paginas web.
+ 
+ **O Que Usei**
+* HTML and SCSS;
+* JavaScript;
+* FrameWork Vue;
+* Axios;
+* Jest;
 
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+**Identidade Visual**
+<div align="center">
+<img src="https://github.com/Arturstriker3/SearchSift/assets/59231364/77255a45-7b9b-4f12-b014-da0ffb0951c5" width="auto" height="auto" />
+</div>
+<br/>
