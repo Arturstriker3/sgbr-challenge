@@ -20,11 +20,13 @@ export default {
       this.SearchBarActive = !this.SearchBarActive;
       const searchElement = document.querySelector('.search');
       searchElement.classList.toggle('active');
+      const containerElement = document.querySelector('.search-container');
+      containerElement.classList.toggle('search-active'); // Adiciona ou remove a classe search-active
     }
   },
   data() {
     return {
-      SearchBarActive: false
+      SearchBarActive: false,
     };
   }
 };
@@ -43,8 +45,13 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
+  height: 100vh;
   background: $colorBlack;
+  transition: height 0.5s ease; /* Add transition property */ 
+
+  &.search-active {
+    height: calc(100vh - 80vh);
+  }
 
   .search {
     position: relative;
