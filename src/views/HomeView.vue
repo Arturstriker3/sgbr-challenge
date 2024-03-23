@@ -68,14 +68,14 @@ export default {
       try {
         const apiKey = 'PbfMrZT4cuSTz5QVE5bPguk1OKkXYh5s';
         const query = document.getElementById('InputSearch').value;
-        const limit = 20; // Defina o limite para o número máximo de GIFs a serem carregados
-        const offset = this.gifs.length; // Calcula o deslocamento com base na quantidade de GIFs já carregados
+        const limit = 20; // Set the limit for the maximum number of new GIFs to be loaded
+        const offset = this.gifs.length; // Calculates the displacement based on the number of GIFs already loaded
         const response = await axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=${limit}&offset=${offset}`);
         
         if (response.data.data.length === 0) {
           this.endReached = true;
         } else {
-          this.gifs = [...this.gifs, ...response.data.data]; // Alteração aqui
+          this.gifs = [...this.gifs, ...response.data.data];
         }
       } catch (error) {
         console.error('Error fetching GIFs:', error);
@@ -89,7 +89,7 @@ export default {
     },
 
     handleScroll() {
-      // Verifica se o usuário chegou ao final da página
+      // Checks if the user has reached the end of the page
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         this.moreContent();
         console.log("carregar mais")
