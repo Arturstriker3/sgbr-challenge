@@ -14,7 +14,7 @@
     <loaderComponent />
   </div>
 
-  <div class="content" v-show="showContent">
+  <div class="content" v-show="showContent" ref="contentContainer">
     <div class="gif-grid">
       <div v-for="gif in gifs" :key="gif.id" class="gif-item">
         <a href="#">
@@ -42,6 +42,7 @@ export default {
       this.loadingSpinner = true;
       this.showContent = false;
       document.body.style.overflow = 'hidden';
+      this.gifs = [];
       try {
         const apiKey = 'PbfMrZT4cuSTz5QVE5bPguk1OKkXYh5s';
         const query = document.getElementById('InputSearch').value;
@@ -58,6 +59,48 @@ export default {
         }, 1000);
       }
     },
+
+    async moreContent() {
+      if (this.loadingMore || this.endReached) return;
+
+      this.loadingMore = true;
+      document.body.style.overflow = 'hidden';
+      try {
+        const apiKey = 'PbfMrZT4cuSTz5QVE5bPguk1OKkXYh5s';
+        const query = document.getElementById('InputSearch').value;
+        const limit = 20; // Defina o limite para o número máximo de GIFs a serem carregados
+        const offset = this.gifs.length; // Calcula o deslocamento com base na quantidade de GIFs já carregados
+        const response = await axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}&limit=${limit}&offset=${offset}`);
+        
+        if (response.data.data.length === 0) {
+          this.endReached = true;
+        } else {
+          this.gifs = [...this.gifs, ...response.data.data]; // Alteração aqui
+        }
+      } catch (error) {
+        console.error('Error fetching GIFs:', error);
+      } finally {
+        setTimeout(() => {
+          this.showContent = true;
+          document.body.style.overflow = '';
+          this.loadingMore = false;
+        }, 1000);
+      }
+    },
+
+    handleScroll() {
+      // Verifica se o usuário chegou ao final da página
+      if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
+        this.moreContent();
+        console.log("carregar mais")
+      }
+    },
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
   },
   components: {
     loaderComponent
@@ -67,7 +110,9 @@ export default {
       searchBarOn: false,
       showContent: false,
       loadingSpinner: false,
-      gifs: []
+      gifs: [],
+      loadingMore: false,
+      endReached: false,
     };
   }
 };
