@@ -10,6 +10,10 @@
     </div>
   </div>
 
+  <div class="loader-container" v-show="loadingSpinner">
+    <loaderComponent />
+  </div>
+
   <div class="content" v-show="showContent">
     <div class="gif-grid">
       <div v-for="gif in gifs" :key="gif.id" class="gif-item">
@@ -25,6 +29,7 @@
 <script>
 
 import axios from 'axios';
+import loaderComponent from '@/components/loaderComponent.vue';
 
 export default {
   methods: {
@@ -38,22 +43,34 @@ export default {
     },
 
     async searchContent() {
+      this.loadingSpinner = true;
+      this.showContent = false;
+      document.body.style.overflow = 'hidden';
       try {
         const apiKey = 'PbfMrZT4cuSTz5QVE5bPguk1OKkXYh5s';
         const query = document.getElementById('InputSearch').value;
         const response = await axios.get(`https://api.giphy.com/v1/gifs/search?api_key=${apiKey}&q=${query}`);
         
         this.gifs = response.data.data;
-        this.showContent = true;
       } catch (error) {
         console.error('Error fetching GIFs:', error);
+      } finally {
+        setTimeout(() => {
+          this.loadingSpinner = false;
+          this.showContent = true;
+          document.body.style.overflow = '';
+        }, 1000);
       }
     },
+  },
+  components: {
+    loaderComponent
   },
   data() {
     return {
       searchBarOn: false,
       showContent: false,
+      loadingSpinner: false,
       gifs: []
     };
   }
@@ -179,6 +196,16 @@ export default {
       }
     }
   }
+}
+
+// Loader
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  z-index: 9999;
 }
 
 // Gif Content
