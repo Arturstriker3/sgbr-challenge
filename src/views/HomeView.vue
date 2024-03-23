@@ -17,10 +17,17 @@
   <div class="content" v-show="showContent" ref="contentContainer">
     <div class="gif-grid">
       <div v-for="gif in gifs" :key="gif.id" class="gif-item">
-        <a href="#">
+        <a href="#" @click="enlargeGif(gif.images.fixed_height.url)">
           <img :src="gif.images.fixed_height.url" alt="GIF">
         </a>
       </div>
+    </div>
+  </div>
+
+  <div class="modal" v-if="isGifModalOpen" @click="closeModal">
+    <div class="modal-content">
+      <span class="close" @click="closeModal">&times;</span>
+      <img :src="selectedGifUrl" alt="GIF Ampliado">
     </div>
   </div>
 
@@ -94,6 +101,15 @@ export default {
         this.moreContent();
       }
     },
+
+    enlargeGif(gifUrl) {
+      this.selectedGifUrl = gifUrl;
+      this.isGifModalOpen = true;
+    },
+
+    closeModal() {
+      this.isGifModalOpen = false;
+    },
   },
   mounted() {
     window.addEventListener('scroll', this.handleScroll);
@@ -112,6 +128,7 @@ export default {
       gifs: [],
       loadingMore: false,
       endReached: false,
+      isGifModalOpen: false,
     };
   }
 };
@@ -282,6 +299,40 @@ export default {
       }
     }
   }
+}
+
+// Modal
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fefefe;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 90%;
+  max-height: 90%;
+  overflow: auto;
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #aaa;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 </style>
