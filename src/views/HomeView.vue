@@ -1,35 +1,40 @@
 <template>
 
-  <div class="search-container" :class="{ 'search-active': searchBarOn }">
-    <div class="search" :class="{ active: searchBarOn }">
-      <div class="icon" @click="activateSearch"></div>
-      <div class="input">
-        <input type="text" placeholder="Search your GIPHY..." id="InputSearch" @keyup.enter="searchContent" autocomplete="off">
-        <span class="delete" @click="activateSearch"></span>
+  <header>
+    <div class="search-container" :class="{ 'search-active': searchBarOn }">
+      <div class="search" :class="{ active: searchBarOn }">
+        <div class="icon" @click="activateSearch"></div>
+        <div class="input">
+          <input type="text" placeholder="Search your GIPHY..." id="InputSearch" @keyup.enter="searchContent" autocomplete="off">
+        </div>
       </div>
     </div>
-  </div>
+  </header>
 
-  <div class="loader-container" v-show="loadingSpinner">
-    <loaderComponent />
-  </div>
+  <main>
+    <div class="loader-container" v-show="loadingSpinner">
+      <loaderComponent />
+    </div>
 
-  <div class="content" v-show="showContent" ref="contentContainer">
-    <div class="gif-grid">
-      <div v-for="gif in gifs" :key="gif.id" class="gif-item">
-        <a href="#" @click="enlargeGif(gif.images.fixed_height.url)">
-          <img :src="gif.images.fixed_height.url" alt="GIF">
-        </a>
+    <div class="content" v-show="showContent" ref="contentContainer">
+      <div class="gif-grid">
+        <div v-for="gif in gifs" :key="gif.id" class="gif-item">
+          <a href="#" @click="enlargeGif(gif.images.fixed_height.url)">
+            <img :src="gif.images.fixed_height.url" alt="GIF">
+          </a>
+        </div>
       </div>
     </div>
-  </div>
+  </main>
 
-  <div class="modal" v-if="isGifModalOpen" @click="closeModal">
-    <div class="modal-content">
-      <span class="close" @click="closeModal">&times;</span>
-      <img :src="selectedGifUrl" alt="GIF Ampliado">
+  <section>
+    <div class="modal" v-if="isGifModalOpen" @click="closeModal">
+      <div class="modal-content">
+        <span class="close" @click="closeModal">&times;</span>
+        <img :src="selectedGifUrl" alt="GIF Ampliado">
+      </div>
     </div>
-  </div>
+  </section>
 
 </template>
 
@@ -163,7 +168,8 @@ export default {
     transition: 0.5s;
 
     &.active {
-      width: 360px;
+      // width: 360px;
+      width: calc(100vh - 50vh)
     }
 
     .icon {
@@ -222,38 +228,6 @@ export default {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
-      }
-
-      .delete {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 20px;
-        height: 20px;
-        right: 15px;
-        
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        &::before {
-          position: absolute;
-          content: '';
-          width: 1px;
-          height: 20px;
-          background: $colorBlack;
-          transform: rotate(45deg);
-        }
-
-        &::after {
-          position: absolute;
-          content: '';
-          width: 1px;
-          height: 20px;
-          background: $colorBlack;
-          transform: rotate(315deg);
-        }
       }
     }
   }
@@ -316,8 +290,8 @@ export default {
 }
 
 .modal-content {
-  background-color: #fefefe;
-  padding: 20px;
+  background-color: $color3;
+  padding: 16px;
   border-radius: 8px;
   max-width: 90%;
   max-height: 90%;
@@ -329,7 +303,7 @@ export default {
   position: absolute;
   top: 10px;
   right: 10px;
-  color: #aaa;
+  color: $colorBlack;
   font-size: 28px;
   font-weight: bold;
   cursor: pointer;
