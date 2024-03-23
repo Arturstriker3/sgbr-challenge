@@ -33,6 +33,7 @@ npm run serve
 
 **Identidade Visual**
 <div align="center">
-<img src="https://github.com/Arturstriker3/SearchSift/assets/59231364/77255a45-7b9b-4f12-b014-da0ffb0951c5" width="auto" height="auto" />
+<img src="https://github.com/Arturstriker3/sgbr-challenge/assets/59231364/83fea7ea-e746-4b37-a84d-5356d0d98347" width="auto" height="auto" />
 </div>
+<br/>
 <br/>
