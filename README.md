@@ -1,21 +1,21 @@
 # Desafio do Desenvolvedor Frontend
 
-## Clone Repository
+## Clone o Repositório
 ```
 git clone https://github.com/Arturstriker3/sgbr-challenge
 ```
 
-## Open the Project
+## Abra o Projeto
 ```
 cd .\sgbr-challenge\ 
 ```
 
-## Dependency Installation
+## Instale as Dependências
 ```
 npm install
 ```
 
-### Compile and run Front and Back
+### Compile e rode o Frontend
 ```
 npm run serve
 ```
