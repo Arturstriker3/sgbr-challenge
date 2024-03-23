@@ -1,10 +1,10 @@
 <template>
 
-  <div class="search-container">
-    <div class="search">
+  <div class="search-container" :class="{ 'search-active': searchBarOn }">
+    <div class="search" :class="{ active: searchBarOn }">
       <div class="icon" @click="activateSearch"></div>
       <div class="input">
-        <input type="text" placeholder="Search your GIPHY..." id="InputSearch" @keyup.enter="searchContent">
+        <input type="text" placeholder="Search your GIPHY..." id="InputSearch" @keyup.enter="searchContent" autocomplete="off">
         <span class="delete" @click="activateSearch"></span>
       </div>
     </div>
@@ -34,11 +34,7 @@ import loaderComponent from '@/components/loaderComponent.vue';
 export default {
   methods: {
     activateSearch() {
-      this.searchBarOn = !this.SearchBarActive;
-      const searchElement = document.querySelector('.search');
-      searchElement.classList.toggle('active');
-      const containerElement = document.querySelector('.search-container');
-      containerElement.classList.toggle('search-active');
+      this.searchBarOn = !this.searchBarOn;
       this.showContent = false;
     },
 
@@ -161,6 +157,10 @@ export default {
         outline: none;
         font-size: 17px;
         background-color: $colorWhite;
+
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
       }
 
       .delete {
