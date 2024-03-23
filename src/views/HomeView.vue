@@ -92,7 +92,6 @@ export default {
       // Checks if the user has reached the end of the page
       if ((window.innerHeight + window.scrollY) >= document.body.scrollHeight) {
         this.moreContent();
-        console.log("carregar mais")
       }
     },
   },
